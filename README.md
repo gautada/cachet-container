@@ -2,7 +2,7 @@
 
 [cachet](https://cachethq.io) is a beautiful and powerful open source status page system.
 
-flip/flop
+flip/flop 2
 
 This project defines a docker container for the cachet which is an open source status page system.
 
