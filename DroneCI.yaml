@@ -1,0 +1,26 @@
+kind: pipeline
+type: kubernetes
+name: CI
+
+steps:
+- name: integrate
+  image: gautada/builder:v1.21.4_v3.2.3
+  privileged: true
+  environment:
+    DOCKER_USERNAME:
+      from_secret: username.docker.io
+    DOCKER_PASSWORD:
+      from_secret: password.docker.io
+    ALPINE_TAG: 3.14.1
+    OCI_VERSION: 2.4
+    OCI_OS: linux
+    OCI_ARCH: arm64
+  commands:
+  - buildah login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD docker.io
+  - buildah bud --build-arg ALPINE_TAG=$ALPINE_TAG --build-arg BRANCH=$OCI_VERSION --tag localhost/coredns:dev -f Containerfile
+  - buildah push localhost/coredns:dev docker://docker.io/gautada/coredns:$OCI_VERSION
+
+  
+
+
+
