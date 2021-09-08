@@ -20,6 +20,9 @@ steps:
   - buildah bud --build-arg ALPINE_TAG=$ALPINE_TAG --build-arg BRANCH=$OCI_VERSION --tag localhost/coredns:dev -f Containerfile
   - buildah push localhost/coredns:dev docker://docker.io/gautada/coredns:$OCI_VERSION
 
+trigger:
+  branch:
+  - main
   
 
 
